@@ -45,7 +45,29 @@ const app = express();
 // app.get('*',(req, res)=>{
 //     res.send('<h1>없는 페이지 입니다.</h1>')
 // })
+
+// get post
+const path = require("path");
+
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+const comments = [
+  {
+    username: "Todd",
+    comment: "lol that is so funny!",
+  },
+  {
+    username: "Skyler",
+    comment: "I like to go birdwatching with my dog",
+  },
+];
+
+app.get("/comments", (req, res) => {
+  res.render("comments/index", { comments });
+});
 
 app.get("/tacos", (req, res) => {
   res.send("<h1>GET /tacos response</h1>");
@@ -58,6 +80,3 @@ app.post("/tacos", (req, res) => {
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
-
-// 3000
-// 8080
