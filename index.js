@@ -77,6 +77,7 @@ app.get("/comments/new", (req, res) => {
 app.post("/comments", (req, res) => {
   const { username, comment } = req.body;
   comments.push({ username, comment });
+  //redirect 사용으로 /comments로 이동
   res.redirect("/comments");
   res.send("IT WORKED!");
   console.log(req.body);
