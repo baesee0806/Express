@@ -1,4 +1,3 @@
-const { log } = require("console");
 const express = require("express");
 const app = express();
 
@@ -56,11 +55,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 const comments = [
+  { id: 1, comment: "lol that is so funny!", username: "Todd" },
   {
-    username: "Todd",
-    comment: "lol that is so funny!",
-  },
-  {
+    id: 2,
     username: "Skyler",
     comment: "I like to go birdwatching with my dog",
   },
@@ -77,10 +74,14 @@ app.get("/comments/new", (req, res) => {
 app.post("/comments", (req, res) => {
   const { username, comment } = req.body;
   comments.push({ username, comment });
-  //redirect 사용으로 /comments로 이동
   res.redirect("/comments");
   res.send("IT WORKED!");
   console.log(req.body);
+});
+app.get("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  const comment = comments[id];
+  res.render("comments/show", { comment });
 });
 
 app.get("/tacos", (req, res) => {
